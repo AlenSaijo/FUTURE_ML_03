@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Screener</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #333; text-align: center; }
+        .job-box { background: #e8f0fe; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 5px solid #1a73e8; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #1a73e8; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        .score { font-weight: bold; color: #1a73e8; }
+        .missing { color: #d93025; font-size: 0.9em; }
+        .found { color: #188038; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📄 AI Resume Screening Report</h1>
+
+    <div class="job-box">
+        <strong>Active Job Description:</strong><br>
+        <small>{{ job_desc }}</small>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Candidate Name</th>
+                <th>Match Score</th>
+                <th>Skills Found</th>
+                <th>Missing Skills</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in results %}
+            <tr>
+                <td>#{{ loop.index }}</td>
+                <td>{{ row.name }}</td>
+                <td class="score">{{ row.score }}%</td>
+                <td class="found">{{ row.found_skills }}</td>
+                <td class="missing">{{ row.missing_skills }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="text-align:center">No resumes found in the 'resumes' folder.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
